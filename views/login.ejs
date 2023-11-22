@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+  <%- include('partials/navigation') %>
+
+
+    <div class="container">
+
+      <form class="login-form" method="POST" action="/login">
+        <h1>Login</h1>
+
+        <% if (session.message) { %>
+          <div class="alert alert-danger">
+
+
+            <p><strong>Error </strong>
+              <%= session.message %>
+            </p>
+
+            <% delete session.message %>
+
+          </div>
+          <% } %>
+
+            <label for="library-card">Library Card Number</label>
+            <input type="text" id="library-card" name="library_card_number" placeholder="Enter your library card number"
+              required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Log In</button>
+      </form>
+
+
+
+    </div>
+
+    </body>
+
+    </html>

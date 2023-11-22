@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+  <%- include('partials/navigation') %>
+
+
+    <div class="container">
+
+      <% if (session.message) { %>
+        <div class="alert alert-danger">
+
+
+          <p><strong>Error </strong>
+            <%= session.message %>
+          </p>
+
+          <% delete session.message %>
+
+        </div>
+        <% } %>
+
+          <main>
+            <% if (session.loggedIn) { %>
+              <h1 class="text-center">
+                <%= session.name + ' - ' + session.library_card_number %>
+              </h1>
+              <% } %>
+                <h3>Welcome to Our Library</h3>
+                <p>Web development books...</p>
+          </main>
+
+          <div class="book-container">
+            <% books.forEach(function(book) { %>
+
+              <div class="book">
+                <img src="images/<%= book.image %>" alt="Book 1">
+                <p class="book-title">
+                  <strong>
+                    <%= book.title %>
+                  </strong>
+                </p>
+                <p class="author-name">
+                  <%= book.author %>
+                </p>
+                <% if (session.loggedIn && book.borrowed_by=='' ) { %>
+                  <a href="/book/borrow/<%= book._id %>"><button class="borrow-button">Borrow</button></a>
+                  <% } else if (session.loggedIn && book.borrowed_by==session.library_card_number) { %>
+                    <a href="/book/return/<%= book._id %>"><button class="return-button">Return</button></a>
+                    <% } %>
+              </div>
+              <% }); %>
+          </div>
+
+    </div>
+
+    </body>
+
+    </html>
